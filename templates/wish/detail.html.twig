@@ -11,6 +11,18 @@
             wish.dateCreated|date('Y-m-d') }}</p>
         {# le filtre nl2br convertit les sauts de ligne du texte en balises<br> #}
         <p class="card-text">{{ wish.description|nl2br }}</p>
+        <a class="btn btn-warning"
+           href="{{ path('wish_edit', {id: wish.id}) }}">
+            Edit
+        </a>
+        <form method="post" action="{{ path('wish_delete', {id: wish.id}) }}"
+              onsubmit="return confirm('Delete this idea?');">
+
+            <input type="hidden" name="_token"
+                   value="{{ csrf_token('delete' ~ wish.id) }}">
+
+            <button class="btn btn-danger">Delete</button>
+        </form>
     </div>
 </div>
 {% endblock %}
